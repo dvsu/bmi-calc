@@ -7,10 +7,12 @@ class CustomCard extends StatelessWidget {
   final double marginTop;
   final double marginRight;
   final double marginButton;
+  final VoidCallback? onPress;
 
   CustomCard(
       {required this.color,
       this.child,
+      this.onPress,
       required this.marginLeft,
       required this.marginTop,
       required this.marginRight,
@@ -18,13 +20,16 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: child,
-      margin:
-          EdgeInsets.fromLTRB(marginLeft, marginTop, marginRight, marginButton),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15.0),
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        child: child,
+        margin: EdgeInsets.fromLTRB(
+            marginLeft, marginTop, marginRight, marginButton),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
       ),
     );
   }

@@ -5,12 +5,12 @@ import 'color_palette.dart';
 import 'custom_card.dart';
 import 'card_content.dart';
 import 'page_layout.dart';
+import 'textstyle.dart';
 
-const activeCardColor = subThemeColor3;
-const inactiveCardColor = subThemeColor2;
-const activeIconColor = mainContentColor;
-const inactiveIconColor = subThemeColor4;
-const buttonColor = subContentColor;
+enum Gender {
+  male,
+  female,
+}
 
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
@@ -20,6 +20,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender? selectedGender;
+  int bodyHeight = 170;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,17 +32,27 @@ class _InputPageState extends State<InputPage> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: CustomCard(
-                    color: activeCardColor,
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    color: selectedGender == Gender.male
+                        ? activeCardColor
+                        : inactiveCardColor,
                     child: CardContent(
                       icon: FontAwesomeIcons.mars,
                       iconName: 'MALE',
-                      color: activeIconColor,
+                      color: selectedGender == Gender.male
+                          ? activeIconColor
+                          : inactiveIconColor,
                     ),
                     marginLeft: sideToFrameSpacing,
                     marginTop: sideToSideSpacing,
@@ -49,11 +62,20 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: CustomCard(
-                    color: inactiveCardColor,
+                    onPress: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    color: selectedGender == Gender.female
+                        ? activeCardColor
+                        : inactiveCardColor,
                     child: CardContent(
                       icon: FontAwesomeIcons.venus,
                       iconName: 'FEMALE',
-                      color: inactiveIconColor,
+                      color: selectedGender == Gender.female
+                          ? activeIconColor
+                          : inactiveIconColor,
                     ),
                     marginLeft: sideToSideSpacing,
                     marginTop: sideToSideSpacing,
@@ -71,6 +93,49 @@ class _InputPageState extends State<InputPage> {
               marginTop: sideToSideSpacing,
               marginRight: sideToFrameSpacing,
               marginButton: sideToSideSpacing,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('HEIGHT'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: <Widget>[
+                        Text(
+                          bodyHeight.toString(),
+                          style: heightTextStyle,
+                        ),
+                        Text(
+                          'cm',
+                        ),
+                      ],
+                    ),
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        activeTrackColor: activeSliderColor,
+                        inactiveTrackColor: inactiveSliderColor,
+                        thumbColor: thumbSliderColor,
+                        overlayColor: overlaySliderColor,
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                      ),
+                      child: Slider(
+                        value: bodyHeight.toDouble(),
+                        min: 120,
+                        max: 210,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            bodyHeight = newValue.round();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           Expanded(
