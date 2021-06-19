@@ -13,10 +13,10 @@ ThemeData customDarkTheme() {
     ),
     primaryTextTheme: TextTheme(
       headline6: TextStyle(
-        color: subContentColor,
+        color: mainContentColor,
         fontFamily: 'TextMeOne',
         fontWeight: FontWeight.w700,
-        fontSize: 22.0,
+        fontSize: 25.0,
       ),
     ),
     textTheme: TextTheme(

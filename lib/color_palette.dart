@@ -12,7 +12,10 @@ const activeCardColor = subThemeColor2;
 const inactiveCardColor = subThemeColor1;
 const activeIconColor = mainContentColor;
 const inactiveIconColor = subThemeColor4;
-const buttonColor = subContentColor;
+
+// calculate button
+const buttonColor = mainContentColor;
+const buttonTextColor = mainThemeColor;
 
 const activeSliderColor = mainContentColor;
 const inactiveSliderColor = subThemeColor3;

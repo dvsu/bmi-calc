@@ -26,9 +26,17 @@ class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'BMI CALCULATOR',
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AppBar(
+              title: Text(
+                'BMI CALCULATOR',
+              ),
+            ),
+          ],
         ),
       ),
       body: Column(
@@ -162,14 +170,40 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            height: 60.0,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
                 horizontal: sideToFrameSpacing, vertical: sideToSideSpacing),
-            decoration: BoxDecoration(
-              color: buttonColor,
-              borderRadius: BorderRadius.circular(10.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(buttonColor),
+                foregroundColor: MaterialStateProperty.all(buttonTextColor),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                )),
+                textStyle: MaterialStateProperty.all(
+                  TextStyle(
+                    fontFamily: 'TextMeOne',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25.0,
+                  ),
+                ),
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                height: 60.0,
+                width: double.infinity,
+                // decoration: BoxDecoration(
+                //   color: buttonColor,
+                //   borderRadius: BorderRadius.circular(10.0),
+                // ),
+                child: Text(
+                  'CALCULATE',
+                  // style: TextStyle(
+                  //   fontSize: 25.0,
+                  // ),
+                ),
+              ),
             ),
           ),
         ],
