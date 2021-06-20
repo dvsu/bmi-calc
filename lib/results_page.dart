@@ -58,30 +58,33 @@ class ResultsPage extends StatelessWidget {
                 marginTop: sideToFrameSpacing,
                 marginRight: sideToFrameSpacing,
                 marginButton: sideToFrameSpacing,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      bmiRange.toUpperCase(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 27.0,
-                        fontWeight: FontWeight.w600,
-                        color: colorMap[bmiRange],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        bmiRange.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 27.0,
+                          fontWeight: FontWeight.w600,
+                          color: colorMap[bmiRange],
+                        ),
                       ),
-                    ),
-                    Text(
-                      bmiScore,
-                      textAlign: TextAlign.center,
-                      style: resultValueTextStyle,
-                    ),
-                    Text(
-                      bmiDescription,
-                      textAlign: TextAlign.center,
-                      style: resultDescTextStyle,
-                    ),
-                  ],
+                      Text(
+                        bmiScore,
+                        textAlign: TextAlign.center,
+                        style: resultValueTextStyle,
+                      ),
+                      Text(
+                        bmiDescription,
+                        textAlign: TextAlign.center,
+                        style: resultDescTextStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
