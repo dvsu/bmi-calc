@@ -44,9 +44,9 @@ ThemeData customDarkTheme() {
       // ),
       bodyText2: TextStyle(
         color: mainContentColor,
-        fontFamily: 'TextMeOne',
-        fontWeight: FontWeight.w700,
-        fontSize: 22.0,
+        fontFamily: 'Barlow',
+        fontWeight: FontWeight.w500,
+        fontSize: 20.0,
       ),
     ),
   );

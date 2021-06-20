@@ -6,6 +6,7 @@ import 'custom_card.dart';
 import 'card_content.dart';
 import 'page_layout.dart';
 import 'textstyle.dart';
+import 'default_data.dart';
 
 enum Gender {
   male,
@@ -22,6 +23,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int bodyHeight = 170;
+  int bodyWeight = 60;
+  int humanAge = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class _InputPageState extends State<InputPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
+            flex: 5,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -95,6 +99,7 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
+            flex: 6,
             child: CustomCard(
               color: activeCardColor,
               marginLeft: sideToFrameSpacing,
@@ -118,6 +123,7 @@ class _InputPageState extends State<InputPage> {
                         ),
                         Text(
                           'cm',
+                          style: heightUnitTextStyle,
                         ),
                       ],
                     ),
@@ -147,6 +153,7 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
+            flex: 6,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -156,6 +163,25 @@ class _InputPageState extends State<InputPage> {
                     marginTop: sideToSideSpacing,
                     marginRight: sideToSideSpacing,
                     marginButton: sideToSideSpacing,
+                    child: CardContentWithButton(
+                      contentTitle: 'WEIGHT',
+                      contentValue: bodyWeight,
+                      contentUnit: 'kg',
+                      onPressedMinus: (int val) {
+                        setState(() {
+                          bodyWeight = (bodyWeight <= minimumWeight)
+                              ? bodyWeight
+                              : bodyWeight -= val;
+                        });
+                      },
+                      onPressedPlus: (int val) {
+                        setState(() {
+                          bodyWeight = (bodyWeight >= maximumWeight)
+                              ? bodyWeight
+                              : bodyWeight += val;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 Expanded(
@@ -165,6 +191,25 @@ class _InputPageState extends State<InputPage> {
                     marginTop: sideToSideSpacing,
                     marginRight: sideToFrameSpacing,
                     marginButton: sideToSideSpacing,
+                    child: CardContentWithButton(
+                      contentTitle: 'AGE',
+                      contentValue: humanAge,
+                      contentUnit: 'years old',
+                      onPressedMinus: (int val) {
+                        setState(() {
+                          humanAge = (humanAge <= minimumAge)
+                              ? humanAge
+                              : humanAge -= val;
+                        });
+                      },
+                      onPressedPlus: (int val) {
+                        setState(() {
+                          humanAge = (humanAge >= maximumAge)
+                              ? humanAge
+                              : humanAge += val;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -181,27 +226,14 @@ class _InputPageState extends State<InputPage> {
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 )),
-                textStyle: MaterialStateProperty.all(
-                  TextStyle(
-                    fontFamily: 'TextMeOne',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25.0,
-                  ),
-                ),
+                textStyle: MaterialStateProperty.all(buttonTextStyle),
               ),
               child: Container(
                 alignment: Alignment.center,
-                height: 60.0,
+                height: buttonHeight,
                 width: double.infinity,
-                // decoration: BoxDecoration(
-                //   color: buttonColor,
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
                 child: Text(
                   'CALCULATE',
-                  // style: TextStyle(
-                  //   fontSize: 25.0,
-                  // ),
                 ),
               ),
             ),
