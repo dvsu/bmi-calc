@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'color_palette.dart';
-import 'custom_card.dart';
+import 'components/color_palette.dart';
+import 'components/custom_card.dart';
 import 'card_content.dart';
-import 'page_layout.dart';
-import 'textstyle.dart';
+import 'components/page_layout.dart';
+import 'components/textstyle.dart';
 import 'default_data.dart';
+import 'results_page.dart';
+import 'calculation.dart';
 
 enum Gender {
   male,
@@ -22,9 +24,9 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-  int bodyHeight = 170;
-  int bodyWeight = 60;
-  int humanAge = 18;
+  double bodyHeight = 170;
+  double bodyWeight = 60;
+  double humanAge = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +61,13 @@ class _InputPageState extends State<InputPage> {
                     color: selectedGender == Gender.male
                         ? activeCardColor
                         : inactiveCardColor,
-                    child: CardContent(
+                    child: CardContentWithSelection(
                       icon: FontAwesomeIcons.mars,
                       iconName: 'MALE',
-                      color: selectedGender == Gender.male
+                      textColor: selectedGender == Gender.male
+                          ? activeTextColor
+                          : inactiveTextColor,
+                      iconColor: selectedGender == Gender.male
                           ? activeIconColor
                           : inactiveIconColor,
                     ),
@@ -82,10 +87,13 @@ class _InputPageState extends State<InputPage> {
                     color: selectedGender == Gender.female
                         ? activeCardColor
                         : inactiveCardColor,
-                    child: CardContent(
+                    child: CardContentWithSelection(
                       icon: FontAwesomeIcons.venus,
                       iconName: 'FEMALE',
-                      color: selectedGender == Gender.female
+                      textColor: selectedGender == Gender.female
+                          ? activeTextColor
+                          : inactiveTextColor,
+                      iconColor: selectedGender == Gender.female
                           ? activeIconColor
                           : inactiveIconColor,
                     ),
@@ -111,14 +119,17 @@ class _InputPageState extends State<InputPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('HEIGHT'),
+                    Text(
+                      'HEIGHT',
+                      style: cardTitleTextStyle,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
                       children: <Widget>[
                         Text(
-                          bodyHeight.toString(),
+                          bodyHeight.toStringAsFixed(0),
                           style: heightTextStyle,
                         ),
                         Text(
@@ -137,12 +148,12 @@ class _InputPageState extends State<InputPage> {
                             RoundSliderThumbShape(enabledThumbRadius: 12.0),
                       ),
                       child: Slider(
-                        value: bodyHeight.toDouble(),
+                        value: bodyHeight,
                         min: 120,
                         max: 210,
                         onChanged: (double newValue) {
                           setState(() {
-                            bodyHeight = newValue.round();
+                            bodyHeight = newValue;
                           });
                         },
                       ),
@@ -219,7 +230,20 @@ class _InputPageState extends State<InputPage> {
             padding: const EdgeInsets.symmetric(
                 horizontal: sideToFrameSpacing, vertical: sideToSideSpacing),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BMICalculation bmi =
+                    BMICalculation(height: bodyHeight, weight: bodyWeight);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultsPage(
+                            bmiScore: bmi.calculateBMI(),
+                            bmiRange: bmi.rangeBMI(),
+                            bmiDescription: bmi.describeBMI(),
+                          )),
+                );
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(buttonColor),
                 foregroundColor: MaterialStateProperty.all(buttonTextColor),

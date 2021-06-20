@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'custom_dark_theme.dart';
+import 'components/custom_dark_theme.dart';
 import 'input_page.dart';
 
 void main() {

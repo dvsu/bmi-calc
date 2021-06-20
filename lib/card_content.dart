@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'textstyle.dart';
-import 'custom_buttons.dart';
+import 'components/textstyle.dart';
+import 'components/custom_buttons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CardContent extends StatelessWidget {
-  final Color color;
+class CardContentWithSelection extends StatelessWidget {
+  final Color textColor;
+  final Color iconColor;
   final IconData icon;
   final String iconName;
 
-  CardContent(
-      {required this.icon, required this.iconName, required this.color});
+  CardContentWithSelection(
+      {required this.icon,
+      required this.iconName,
+      required this.textColor,
+      required this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class CardContent extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            color: color,
+            color: iconColor,
             size: 80.0,
           ),
           SizedBox(
@@ -29,7 +33,7 @@ class CardContent extends StatelessWidget {
           Text(
             iconName,
             style: TextStyle(
-              color: color,
+              color: textColor,
             ),
           ),
         ],
@@ -40,7 +44,7 @@ class CardContent extends StatelessWidget {
 
 class CardContentWithButton extends StatelessWidget {
   final String contentTitle;
-  final int contentValue;
+  final double contentValue;
   final String contentUnit;
   final Function(int) onPressedMinus;
   final Function(int) onPressedPlus;
@@ -57,9 +61,12 @@ class CardContentWithButton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(contentTitle),
         Text(
-          contentValue.toString(),
+          contentTitle,
+          style: cardTitleTextStyle,
+        ),
+        Text(
+          contentValue.toStringAsFixed(0),
           style: weightTextStyle,
         ),
         Text(
